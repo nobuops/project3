@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 — 静</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 100%;
+    height: 100vh;
+    background: #080808;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    gap: 2.5rem;
+  }
+  .label {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 13px;
+    letter-spacing: 0.35em;
+    color: rgba(232,226,217,0.2);
+  }
+</style>
+</head>
+<body>
+<svg viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg" width="260" height="275">
+  <circle cx="30" cy="30" r="0.9" fill="rgba(232,226,217,0.25)"/>
+  <circle cx="80" cy="18" r="0.6" fill="rgba(232,226,217,0.15)"/>
+  <circle cx="310" cy="25" r="0.8" fill="rgba(232,226,217,0.2)"/>
+  <circle cx="370" cy="50" r="0.5" fill="rgba(232,226,217,0.12)"/>
+  <circle cx="12" cy="70" r="0.7" fill="rgba(232,226,217,0.12)"/>
+  <circle cx="385" cy="90" r="0.9" fill="rgba(232,226,217,0.18)"/>
+  <circle cx="55" cy="55" r="0.5" fill="rgba(232,226,217,0.12)"/>
+  <circle cx="340" cy="70" r="0.6" fill="rgba(232,226,217,0.15)"/>
+  <circle cx="170" cy="12" r="0.7" fill="rgba(232,226,217,0.12)"/>
+  <circle cx="230" cy="35" r="0.5" fill="rgba(232,226,217,0.1)"/>
+  <circle cx="130" cy="22" r="0.4" fill="rgba(232,226,217,0.12)"/>
+
+  <!-- No moon — replaced with crescent (broken/missing feel) -->
+  <circle cx="330" cy="58" r="22" fill="#100e0b"/>
+  <circle cx="337" cy="53" r="19" fill="#080808"/>
+
+  <line x1="0" y1="355" x2="400" y2="355" stroke="rgba(232,226,217,0.04)" stroke-width="0.5"/>
+
+  <!-- Broken left pillar — tilted -->
+  <g transform="rotate(-4, 118, 270)">
+    <rect x="108" y="185" width="20" height="172" rx="2" fill="#4a1500"/>
+  </g>
+
+  <!-- Right pillar intact but darker -->
+  <rect x="272" y="185" width="20" height="172" rx="2" fill="#4a1500"/>
+
+  <!-- Kasagi — faded, slightly off -->
+  <path d="M68 130 Q200 110 332 130 L336 146 Q200 126 64 146 Z" fill="#5a1a08"/>
+  <rect x="94" y="146" width="212" height="14" rx="2" fill="#4a1500"/>
+  <rect x="100" y="198" width="200" height="13" rx="2" fill="#4a1500"/>
+  <rect x="102" y="160" width="36" height="16" rx="1" fill="#5a1a08"/>
+  <rect x="262" y="160" width="36" height="16" rx="1" fill="#5a1a08"/>
+
+  <rect x="103" y="348" width="30" height="10" rx="1.5" fill="#3a1000"/>
+  <rect x="267" y="348" width="30" height="10" rx="1.5" fill="#3a1000"/>
+
+  <ellipse cx="200" cy="358" rx="80" ry="4" fill="rgba(80,20,0,0.05)"/>
+</svg>
+
+<p class="label">404 · 見つかりません</p>
+</body>
+</html>
