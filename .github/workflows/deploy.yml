@@ -41,7 +41,7 @@ jobs:
           exit-code: 1
 
       - name: Grype dependency scan
-        uses: anchore/scan-action@v4
+        uses: anchore/scan-action@v7
         with:
           path: "."
           fail-build: true
