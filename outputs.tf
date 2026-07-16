@@ -1,7 +1,11 @@
 output "website_url" {
-  value = "http://${aws_s3_bucket_website_configuration.blog.website_endpoint}"
+  value = module.site.website_url
 }
 
 output "website_bucket" {
-  value = aws_s3_bucket.blog.id
+  value = module.site.website_bucket
+}
+
+output "cloudfront_distribution_id" {
+  value = module.site.cloudfront_distribution_id
 }
