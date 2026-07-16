@@ -40,6 +40,19 @@ resource "aws_s3_bucket_versioning" "blog" {
   }
 }
 
+# Clean up old, non-current object versions automatically after 90 days,
+# so the bucket doesn't grow indefinitely from versioning + repeated deploys.
+resource "aws_s3_bucket_lifecycle_configuration" "blog" {
+  bucket = aws_s3_bucket.blog.id
+  rule {
+    id     = "expire-old-versions"
+    status = "Enabled"
+    noncurrent_version_expiration {
+      noncurrent_days = 90
+    }
+  }
+}
+
 # CloudFront Origin Access Control - lets CloudFront authenticate to S3
 # without the bucket needing to be public.
 resource "aws_cloudfront_origin_access_control" "blog" {
