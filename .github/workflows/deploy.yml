@@ -20,6 +20,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        env:
+        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
       - name: Set environment variables based on branch
         id: envvars
@@ -42,6 +44,8 @@ jobs:
 
       - name: Grype dependency scan
         uses: anchore/scan-action@v4
+        env:
+        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
         with:
           path: "."
           fail-build: true
