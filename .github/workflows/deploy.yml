@@ -25,10 +25,10 @@ jobs:
         id: envvars
         run: |
           if [ "${{ github.ref_name }}" == "main" ]; then
-            echo "bucket_name=my-blog-prod" >> "$GITHUB_OUTPUT"
+            echo "bucket_name=nobuops-blog-prod" >> "$GITHUB_OUTPUT"
             echo "state_key=prod/terraform.tfstate" >> "$GITHUB_OUTPUT"
           else
-            echo "bucket_name=my-blog-staging" >> "$GITHUB_OUTPUT"
+            echo "bucket_name=nobuops-blog-staging" >> "$GITHUB_OUTPUT"
             echo "state_key=staging/terraform.tfstate" >> "$GITHUB_OUTPUT"
           fi
 
