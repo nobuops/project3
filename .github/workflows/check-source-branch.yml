@@ -1,0 +1,16 @@
+name: Validate PR source branch
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  check-source:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Only allow merges into main from staging
+        if: github.event.pull_request.head.ref != 'staging'
+        run: |
+          echo "This PR targets main but does not come from staging."
+          echo "Only staging -> main merges are allowed."
+          exit 1

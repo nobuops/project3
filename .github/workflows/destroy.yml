@@ -2,6 +2,14 @@ name: Destroy Blog
 
 on:
   workflow_dispatch:
+    inputs:
+      target_environment:
+        description: 'Which environment to destroy'
+        required: true
+        type: choice
+        options:
+          - staging
+          - main
 
 env:
   AWS_REGION: us-east-1
@@ -9,6 +17,9 @@ env:
 jobs:
   destroy:
     runs-on: ubuntu-latest
+    # main/production requires manual approval if configured in
+    # Settings > Environments > production > Required reviewers
+    environment: ${{ github.event.inputs.target_environment == 'main' && 'production' || 'staging' }}
 
     permissions:
       id-token: write
@@ -16,6 +27,17 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set environment variables based on input
+        id: envvars
+        run: |
+          if [ "${{ github.event.inputs.target_environment }}" == "main" ]; then
+            echo "bucket_name=my-blog-prod" >> "$GITHUB_OUTPUT"
+            echo "state_key=prod/terraform.tfstate" >> "$GITHUB_OUTPUT"
+          else
+            echo "bucket_name=my-blog-staging" >> "$GITHUB_OUTPUT"
+            echo "state_key=staging/terraform.tfstate" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -28,11 +50,15 @@ jobs:
         with:
           terraform_version: "~1.10"
 
-      - name: Empty blog bucket
-        run: aws s3 rm s3://$(terraform output -raw website_bucket) --recursive
-
+      # Init must run before any "terraform output" call, otherwise there is
+      # no initialized backend/state to read from yet.
       - name: Terraform Init
-        run: terraform init
+        run: terraform init -backend-config="key=${{ steps.envvars.outputs.state_key }}"
+
+      - name: Empty blog bucket
+        run: |
+          BUCKET=$(terraform output -raw website_bucket)
+          aws s3 rm s3://$BUCKET --recursive
 
       - name: Terraform Destroy
-        run: terraform destroy -auto-approve
+        run: terraform destroy -var="bucket_name=${{ steps.envvars.outputs.bucket_name }}" -auto-approve
